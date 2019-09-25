@@ -1,15 +1,26 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 public class BibliotecaAppTest{
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
 
-    @Test // Checks to make sure the message is correct.
-    public void getHelloMesssage() {
-        assertThat( BibliotecaApp.getHelloMessage(), is(equalTo("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!")));
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
     }
 
 }
