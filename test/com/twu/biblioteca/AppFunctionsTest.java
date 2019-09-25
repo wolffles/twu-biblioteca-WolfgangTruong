@@ -33,8 +33,8 @@ public class AppFunctionsTest {
 
     @Test
     public void printListOfBooks(){
-        Book x = new Book("one two", 13, "aaa bbb");
+        Book x = new Book("one two", 13, "aaa bbb", 1968);
         AppFunctions.printListOfBooks(x);
-        assertThat( outContent.toString(), is("   13                                                     one two             aaa bbb\n"));
+        assertThat( outContent.toString(), is("   13                                           one two                       aaa bbb 1968\n"));
     }
 }

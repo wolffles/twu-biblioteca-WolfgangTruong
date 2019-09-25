@@ -17,7 +17,7 @@ public class BibliotecaApp {
          AppFunctions.printMessage("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
     private static void libraryList(Library library){
-        System.out.format(AppFunctions.formatString, 0 , "TITLE", "AUTHOR");
+        System.out.format( "%5s%50s%30s%5s%n" , "ID" , "TITLE", "AUTHOR", "YEAR");
         library.getBookList().forEach(ele ->
                 AppFunctions.printListOfBooks(ele)
         );
