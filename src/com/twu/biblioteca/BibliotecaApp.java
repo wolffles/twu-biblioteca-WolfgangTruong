@@ -13,6 +13,7 @@ public class BibliotecaApp {
     private static String menu = "MAIN MENU\n" +
             "1. Browse Library\n" +
             "2. Checkout Book\n" +
+            "3. Return Book\n" +
             "0. Exit App";
 
     private static void mainMenu(Library library){
@@ -27,6 +28,9 @@ public class BibliotecaApp {
                     break;
                 case 2:
                     library.checkoutBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+                    break;
+                case 3:
+                    library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
                     break;
                 case 0:
                     bool = false;

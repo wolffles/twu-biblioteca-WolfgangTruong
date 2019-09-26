@@ -88,6 +88,55 @@ public class Library {
                 AppFunctions.lineBreak("you didn't enter the correct attribute");
             }
         }
+    }
 
+
+    public void returnBook(String attr){
+        boolean bool = true;
+        switch(attr.toLowerCase()){
+            case "id":
+                while(bool) {
+                    int id = AppFunctions.numberSelect("enter ID number, or 0 to exit");
+                    if (id == 0){
+                        bool = false;
+                    }else if(AppFunctions.arrayContainsId(getCheckedOutList(), id)){
+                        bool = false;
+                        for(int i = 0; i < getCheckedOutList().size(); i++){
+                            Book item = this.checkedOutList.get(i);
+                            if(item.getId() == id){
+                                this.bookList.add(item);
+                                checkedOutList.remove(item);
+                            }
+                        }
+                        AppFunctions.lineBreak("Thank you for returning the book");
+                    }else {
+                        AppFunctions.lineBreak("That is not a valid return, check Id.");
+                    }
+                }
+                break;
+            case "title":
+                while(bool) {
+                    String title = AppFunctions.enterString("enter title number, or 0 to exit");
+                    if (title.contentEquals("0")){
+                        bool = false;
+                    }else if (AppFunctions.arrayContainsTitle(this.checkedOutList, title.trim())){
+                        bool = false;
+                        for(int i = 0; i < getCheckedOutList().size(); i++){
+                            Book item = this.checkedOutList.get(i);
+                            if(item.getTitle().toLowerCase().contentEquals(title.toLowerCase())){
+                                bookList.add(item);
+                                checkedOutList.remove(item);
+                            }
+                        }
+                        AppFunctions.lineBreak("Thank you for returning the book!");
+                    }else{
+                        AppFunctions.lineBreak("That is not a valid return, check spelling");
+                    }
+                }
+                break;
+            default: {
+                AppFunctions.lineBreak("you didn't enter the correct attribute");
+            }
+        }
     }
 }
