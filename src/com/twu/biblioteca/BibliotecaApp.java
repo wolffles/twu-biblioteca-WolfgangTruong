@@ -12,8 +12,9 @@ public class BibliotecaApp {
     }
     private static String menu = "MAIN MENU\n" +
             "1. Browse Library\n" +
-            "2. Checkout Book\n" +
-            "3. Return Book\n" +
+            "2. Browse Movies\n" +
+            "3. Checkout Book\n" +
+            "4. Return Book\n" +
             "0. Exit App";
 
     private static void mainMenu(Library library){
@@ -27,9 +28,13 @@ public class BibliotecaApp {
                     AppFunctions.lineBreak();
                     break;
                 case 2:
-                    library.checkoutBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+                    moviesCollection(library);
+                    AppFunctions.lineBreak();
                     break;
                 case 3:
+                    library.checkoutBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+                    break;
+                case 4:
                     library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
                     break;
                 case 0:
@@ -48,6 +53,12 @@ public class BibliotecaApp {
         System.out.format( "%5s%50s%30s%5s%n" , "ID" , "TITLE", "AUTHOR", "YEAR");
         library.getBookList().forEach(ele ->
             System.out.format( "%5d%50s%30s%5d%n", ele.getId(), ele.getTitle(), ele.getAuthor(), ele.getYear())
+        );
+    }
+    private static void moviesCollection(Library collection){
+        System.out.format( "%40s%10s%40s%5s%n" , "NAME" , "YEAR", "DIRECTOR", "RAITING");
+        collection.getMovieList().forEach(ele ->
+                System.out.format( "%40s%10s%40s%5s%n", ele.getName(), ele.getYear(), ele.getDirector(), ele.getRating())
         );
     }
 

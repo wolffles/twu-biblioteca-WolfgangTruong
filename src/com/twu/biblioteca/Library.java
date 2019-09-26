@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Library {
     private ArrayList<Book> bookList;
     private ArrayList<Book> checkedOutList;
+    private ArrayList<Movie> movieList;
+    private ArrayList<Movie> rentedMovies;
 
     public Library() {
         bookList = new ArrayList<>();
         checkedOutList = new ArrayList<>();
+        movieList = new ArrayList<>();
+        rentedMovies = new ArrayList<>();
         bookList.add(new Book("All About Apples", 1, "johnny appleseed", 1793));
         bookList.add(new Book("Be Brave Bruh", 2, "Brospeh bruhmun", 2012));
         bookList.add(new Book("Click Clack Catastrophe ", 3, "Cats Coolio", 1850));
@@ -23,10 +27,25 @@ public class Library {
         bookList.add(new Book("Lads Little Leg", 12, "Less Lemmar", 1968));
         bookList.add(new Book("Muse Music's Masterpieces", 13, "Manny Makovich", 1968));
         checkedOutList.add(new Book("Nicole's Naughty Nights", 14, "Nick NewComer", 2019));
+        movieList.add(new Movie("Iron Man", "2008", "Jon Favreau", "10"));
+        movieList.add(new Movie("Iron Man2", "2010", "Jon Favreau", "9"));
+        movieList.add(new Movie("Iron Man3", "2014", "Jon Favreau", "3"));
+        movieList.add(new Movie("Avengers", "2011", " Joss Whedon, Joe Russo, Anthony Russo", "10"));
+        movieList.add(new Movie("Thor", "2009", "Kenneth Branagh", "9"));
+        movieList.add(new Movie("Captain America", "2012", "Joe Johnston", "6"));
+        rentedMovies.add(new Movie("Spider Man: Home Coming","2016","I don't know","10"));
     }
 
     public ArrayList<Book> getBookList() {
         return this.bookList;
+    }
+
+    public ArrayList<Movie> getMovieList() {
+        return movieList;
+    }
+
+    public ArrayList<Movie> getRentedMovies() {
+        return rentedMovies;
     }
 
     public ArrayList<Book> getCheckedOutList(){
