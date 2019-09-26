@@ -10,33 +10,31 @@ public class BibliotecaApp {
 
 
     }
+    private static String menu = "MAIN MENU\n" +
+            "1. Browse Library\n" +
+            "0. Exit App";
 
     private static void mainMenu(Library library){
-        Scanner scan = new Scanner(System.in);
         boolean bool = true;
-        System.out.println("Select an option");
-        System.out.println(
-                "1. Browse Library"
-        );
-        int num = scan.nextInt();
-        scan.nextLine();
         while(bool) {
+            System.out.println(menu);
+            int num = AppFunctions.numberSelect("Please select an option");
             switch (num) {
                 case 1:
                     libraryList(library);
+                    AppFunctions.lineBreak();
+                    break;
+                case 0:
                     bool = false;
+                    AppFunctions.lineBreak("GoodBye User");
                     break;
                 default:
-                    System.out.println("You didn't enter a valid option");
-                    num = scan.nextInt();
-                    scan.nextLine();
-
+                   AppFunctions.lineBreak("You didn't enter a valid option");
             }
-
         }
     }
     private static void helloMessage(){
-        System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
+       AppFunctions.lineBreak("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!");
     }
     private static void libraryList(Library library){
         System.out.format( "%5s%50s%30s%5s%n" , "ID" , "TITLE", "AUTHOR", "YEAR");

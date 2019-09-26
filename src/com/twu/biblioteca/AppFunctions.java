@@ -1,34 +1,35 @@
-//package com.twu.biblioteca;
+package com.twu.biblioteca;
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // This is a methods class for general app functionality such as: print messages, and checkout.
-//public class AppFunctions {
-//    public static final String formatString = "%5d%50s%30s%5d%n";
-//
-//    public static void printListOfBooks(Book book){
-//        System.out.format( formatString, book.getId(), book.getTitle(), book.getAuthor(), book.getYear());
-//    }
+public class AppFunctions {
 
-//    public static void optionsLoop(){
-//        Scanner scan = new Scanner(System.in);
-//        boolean bool = true;
-//
-//        int num = scan.nextInt();
-//        scan.nextLine();
-//        while(bool) {
-//            switch (num) {
-//                case 1:
-//                    libraryList(library);
-//                    bool = false;
-//                    break;
-//                default:
-//                    System.out.println("You didn't enter a valid option");
-//
-//            }
-//            int num = scan.nextInt();
-//            scan.nextLine();
-//        }
-//    }
-//}
+
+
+    public static int numberSelect(String message){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+
+    public static void lineBreak(String message){
+        Scanner scan = new Scanner(System.in);
+        System.out.println(message);
+        System.out.println("-> Enter <-");
+        scan.nextLine();
+    }
+
+    public static void lineBreak(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("-> Enter <-");
+        scan.nextLine();
+    }
+
+}
