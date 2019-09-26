@@ -71,4 +71,15 @@ public class AppFunctionsTest {
         app.lineBreak("hello");
         assertThat(outContent.toString(), is(equalTo("hello\n-> Enter <-\n")));
     }
+
+    @Test
+    public void testArrayContainsID(){
+        AppFunctions app = new AppFunctions();
+        Library lib = new Library();
+
+//       @WRONG INPUT: doesn't exist returns false
+        assertThat(app.arrayContainsId(lib.getBookList(), 99),is( false));
+//       @CORRECT INPUT: returns true if matches
+        assertThat(app.arrayContainsId(lib.getBookList(), 3),is( true));
+    }
 }
