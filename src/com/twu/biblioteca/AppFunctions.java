@@ -43,6 +43,16 @@ public class AppFunctions {
         return exist;
     }
 
+    public static boolean arrayContainsId(ArrayList<Book> array, int id){
+        boolean exist = false;
+        for(int i = 0; i < array.size(); i++){
+            if(array.get(i).getId() == id){
+                exist = true;
+            }
+        }
+        return exist;
+    }
+
 
 //  helps mark end of a user interaction. one has message before the end, other is generic end.
     public static void lineBreak(String message){
