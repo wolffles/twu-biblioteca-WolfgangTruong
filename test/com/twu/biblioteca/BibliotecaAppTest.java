@@ -23,4 +23,8 @@ public class BibliotecaAppTest{
         System.setOut(originalOut);
     }
 
+    public void testhelloMessage(){
+//        helloMessage();
+    }
+
 }

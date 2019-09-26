@@ -25,4 +25,40 @@ public class Library {
     public ArrayList<Book> getBookList() {
         return this.bookList;
     }
+
+    public void checkoutBook(String attr){
+        boolean bool = true;
+        switch(attr.toLowerCase()){
+            case "id":
+                while(bool) {
+                    int id = AppFunctions.numberSelect("enter ID number, or 0 to exit");
+                    if (id == 0){
+                        bool = false;
+                    }else if(id > 0){
+                        bool = false;
+                        this.bookList.removeIf(book -> (book.getId() == id));
+                        AppFunctions.lineBreak("book with id: "+ id +" has been checked out");
+                    }
+                }
+                break;
+            case "title":
+                while(bool) {
+                    String title = AppFunctions.enterString("enter title number, or 0 to exit");
+                    if (title.contentEquals("0")){
+                        bool = false;
+                    }else if (AppFunctions.arrayContainsTitle(this.bookList, title.trim())){
+                        bool = false;
+                        this.bookList.removeIf(book -> (book.getTitle().toLowerCase().contentEquals(title.toLowerCase())));
+                        AppFunctions.lineBreak(title.toUpperCase() + " has been removed");
+                    }else{
+                        AppFunctions.lineBreak("Couldn't find the title you were looking for. Please check your spelling.");
+                    }
+                }
+                break;
+            default: {
+                AppFunctions.lineBreak("you didn't enter the correct attribute");
+            }
+        }
+
+    }
 }
