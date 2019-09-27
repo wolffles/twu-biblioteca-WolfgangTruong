@@ -5,6 +5,7 @@
 package com.twu.biblioteca;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -42,6 +43,18 @@ public class AppFunctions {
         }
         return exist;
     }
+
+    public static boolean arrayContainsUser(ArrayList<User> array, String libraryNumber){
+        boolean exist = false;
+        for(int i = 0; i < array.size(); i++){
+            if(array.get(i).getLibraryNumber().contentEquals(libraryNumber.toLowerCase())){
+                exist = true;
+            }
+        }
+        return exist;
+    }
+
+
     public static boolean arrayContainsName(ArrayList<Movie> array, String title){
         boolean exist = false;
         for(int i = 0; i < array.size(); i++){
@@ -76,5 +89,6 @@ public class AppFunctions {
         System.out.println("-> Enter <-");
         scan.nextLine();
     }
+
 
 }

@@ -5,12 +5,21 @@ public class Movie {
     private String year;
     private String director;
     private String rating;
+    private String renter;
 
     public Movie(String name, String year, String director, String rating) {
         this.name = name;
         this.year = year;
         this.director = director;
         this.rating = rating;
+        this.renter = "";
+    }
+    public Movie(String name, String year, String director, String rating, String renter) {
+        this.name = name;
+        this.year = year;
+        this.director = director;
+        this.rating = rating;
+        this.renter = renter;
     }
 
     public String getName() {

@@ -5,12 +5,21 @@ public class Book {
     private int id;
     private String author;
     private int year;
+    private String renter;
 
     public Book(String title, int id, String author, int year) {
         this.title = title;
         this.id = id;
         this.author = author;
         this.year = year;
+        this.renter = "";
+    }
+    public Book(String title, int id, String author, int year, String renter) {
+        this.title = title;
+        this.id = id;
+        this.author = author;
+        this.year = year;
+        this.renter = renter;
     }
 
     public String getTitle() {
@@ -27,5 +36,13 @@ public class Book {
 
     public int getYear(){
         return year;
+    }
+
+    public String getRenter() {
+        return renter;
+    }
+
+    public void setRenter(String renter) {
+        this.renter = renter;
     }
 }

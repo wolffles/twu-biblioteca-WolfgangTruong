@@ -1,56 +1,94 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaApp {
-
-    public static void main(String[] args) {
-        Library library = new Library();
-        bibliotecaLaunch(library);
-
-
-    }
-    private static String menu = "MAIN MENU\n" +
+    private static String memberMenu = "MEMBER MAIN MENU\n" +
             "1. Browse Library\n" +
             "2. Browse Movies\n" +
             "3. Checkout Book\n" +
             "4. Return Book\n" +
             "5. Rent Movie\n" +
             "6. Return Movie\n" +
+            "7. Check Held Items\n" +
             "0. Exit App";
 
-    private static void mainMenu(Library library){
+    private static String guestMenu = "GUEST MAIN MENU\n" +
+            "1. Browse Library\n" +
+            "2. Browse Movies\n" +
+            "3. Login\n" +
+            "0. Exit App";
+
+
+    public static void main(String[] args) {
+        Auth auth = new Auth();
+        Library library = new Library();
+        bibliotecaLaunch(library, auth);
+
+
+    }
+    private static void menu(Library library, Auth auth){
         boolean bool = true;
         while(bool) {
-            System.out.println(menu);
-            int num = AppFunctions.numberSelect("Please select an option");
-            switch (num) {
-                case 1:
-                    libraryList(library);
-                    AppFunctions.lineBreak();
-                    break;
-                case 2:
-                    moviesCollection(library);
-                    AppFunctions.lineBreak();
-                    break;
-                case 3:
-                    library.checkoutBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
-                    break;
-                case 4:
-                    library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
-                    break;
-                case 5:
-                    library.checkoutMovie();
-                    break;
-//                case 6:
-//                    library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
-//                    break;
-                case 0:
-                    bool = false;
-                    AppFunctions.lineBreak("GoodBye User");
-                    break;
-                default:
-                   AppFunctions.lineBreak("You didn't enter a valid option");
+            if(auth.isActive()){
+                System.out.println(memberMenu);
+                int num = AppFunctions.numberSelect("Please select an option");
+                switch (num) {
+                    case 1:
+                        libraryList(library);
+                        AppFunctions.lineBreak();
+                        break;
+                    case 2:
+                        moviesCollection(library);
+                        AppFunctions.lineBreak();
+                        break;
+                    case 3:
+                        library.checkoutBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+                        break;
+                    case 4:
+                        library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+                        break;
+                    case 5:
+                        library.checkoutMovie();
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        usersItemsOut(auth.getAccRef());
+                        break;
+                    case 0:
+                        bool = false;
+                        AppFunctions.lineBreak("GoodBye User");
+                        break;
+                    default:
+                        AppFunctions.lineBreak("You didn't enter a valid option");
+                }
+            }else if(!auth.isActive()) {
+                System.out.println(guestMenu);
+                int num = AppFunctions.numberSelect("Please select an option");
+                switch (num) {
+                    case 1:
+                        libraryList(library);
+                        AppFunctions.lineBreak();
+                        break;
+                    case 2:
+                        moviesCollection(library);
+                        AppFunctions.lineBreak();
+                        break;
+                    case 3:
+                        System.out.println("library number is 'lib-1234' and password is 'password' ");
+                        String libraryNumber = AppFunctions.enterString("enter your library number").trim();
+                        String password = AppFunctions.enterString("enter your password").trim();
+                        auth.login(library, libraryNumber, password);
+                        break;
+                    case 0:
+                        bool = false;
+                        AppFunctions.lineBreak("GoodBye User");
+                        break;
+                    default:
+                        AppFunctions.lineBreak("You didn't enter a valid option");
+                }
             }
         }
     }
@@ -70,8 +108,20 @@ public class BibliotecaApp {
         );
     }
 
-    private static void bibliotecaLaunch(Library library){
+    private static void usersItemsOut(User user){
+        System.out.format( "%10s%40s%n" , "TYPE" , "NAME");
+        ArrayList<Object> items = user.getItemsOut();
+        for(int i = 0; i < items.size(); i++ ){
+            if(items.get(i) instanceof Book ) {
+                System.out.format("%10s%40s%n", "BOOK", ((Book) items.get(i)).getTitle());
+            }else{
+                System.out.format("%10s%40s%n", "MOVIE", ((Movie) items.get(i)).getName());
+            }
+        }
+        AppFunctions.lineBreak();
+    }
+    private static void bibliotecaLaunch(Library library, Auth auth){
         helloMessage();
-        mainMenu(library);
+        menu(library, auth);
     }
 }
