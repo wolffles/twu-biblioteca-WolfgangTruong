@@ -15,6 +15,8 @@ public class BibliotecaApp {
             "2. Browse Movies\n" +
             "3. Checkout Book\n" +
             "4. Return Book\n" +
+            "5. Rent Movie\n" +
+            "6. Return Movie\n" +
             "0. Exit App";
 
     private static void mainMenu(Library library){
@@ -37,6 +39,12 @@ public class BibliotecaApp {
                 case 4:
                     library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
                     break;
+                case 5:
+                    library.checkoutMovie();
+                    break;
+//                case 6:
+//                    library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
+//                    break;
                 case 0:
                     bool = false;
                     AppFunctions.lineBreak("GoodBye User");

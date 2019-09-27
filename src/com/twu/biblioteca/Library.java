@@ -158,4 +158,30 @@ public class Library {
             }
         }
     }
+
+    public void checkoutMovie() {
+        boolean bool = true;
+        while (bool) {
+            String name = AppFunctions.enterString("enter name of movie, or 0 to exit");
+            if (name.contentEquals("0")) {
+                bool = false;
+            } else if (AppFunctions.arrayContainsName(this.movieList, name.trim())) {
+                bool = false;
+                for (int i = 0; i < getMovieList().size(); i++) {
+                    Movie item = getMovieList().get(i);
+                    if (item.getName().toLowerCase().contentEquals(name.toLowerCase())) {
+                        rentedMovies.add(item);
+                        movieList.remove(item);
+                    }
+                }
+                AppFunctions.lineBreak("Thank you! Enjoy the Film");
+            } else {
+                if (AppFunctions.arrayContainsName(getRentedMovies(), name.trim())) {
+                    AppFunctions.lineBreak("Sorry, that movie is not available, try again later");
+                } else {
+                    AppFunctions.lineBreak("Couldn't find the name you were looking for. Please check your spelling.");
+                }
+            }
+        }
+    }
 }

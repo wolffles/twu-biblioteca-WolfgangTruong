@@ -42,6 +42,15 @@ public class AppFunctions {
         }
         return exist;
     }
+    public static boolean arrayContainsName(ArrayList<Movie> array, String title){
+        boolean exist = false;
+        for(int i = 0; i < array.size(); i++){
+            if(array.get(i).getName().toLowerCase().contentEquals(title.toLowerCase())){
+                exist = true;
+            }
+        }
+        return exist;
+    }
 
     public static boolean arrayContainsId(ArrayList<Book> array, int id){
         boolean exist = false;
