@@ -12,6 +12,7 @@ public class BibliotecaApp {
             "5. Rent Movie\n" +
             "6. Return Movie\n" +
             "7. Check Held Items\n" +
+            "8. Account Information\n" +
             "0. Exit App";
 
     private static String guestMenu = "GUEST MAIN MENU\n" +
@@ -56,6 +57,9 @@ public class BibliotecaApp {
                         break;
                     case 7:
                         usersItemsOut(auth.getAccRef());
+                        break;
+                    case 8:
+                        userInfomation(auth.getAccRef());
                         break;
                     case 0:
                         bool = false;
@@ -118,6 +122,23 @@ public class BibliotecaApp {
                 System.out.format("%10s%40s%n", "MOVIE", ((Movie) items.get(i)).getName());
             }
         }
+        AppFunctions.lineBreak();
+    }
+
+    private static void userInfomation(User user){
+        if(user.getName() == null || user.getEmail() == null || user.getPhone() == null ){
+            if(AppFunctions.enterString("Your Profile is incomplete would you like to update it 'y/n'?").trim().contentEquals("y")){
+                user.setName(AppFunctions.enterString("Full name?"));
+                user.setEmail(AppFunctions.enterString("Email address?"));
+                user.setPhone(AppFunctions.enterString("Phone number?"));
+            }
+        }
+        System.out.println("USER INFORMATION");
+        System.out.println("Library Number: "+ user.getLibraryNumber()+"\n" +
+                "Name: " +  user.getName() +"\n" +
+                "Email: " + user.getEmail() +"\n" +
+                "Phone: " + user.getPhone()
+        );
         AppFunctions.lineBreak();
     }
     private static void bibliotecaLaunch(Library library, Auth auth){

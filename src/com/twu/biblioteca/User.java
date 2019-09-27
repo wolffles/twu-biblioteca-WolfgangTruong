@@ -6,6 +6,9 @@ public class User {
     private String libraryNumber;
     private String password;
     private ArrayList<Object> itemsOut;
+    private String name;
+    private String email;
+    private String phone;
 
     public User(String libraryNumber, String password) {
         this.libraryNumber = libraryNumber;
@@ -27,5 +30,29 @@ public class User {
 
     public void addToItemsOut(Object object){
         itemsOut.add(object);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -73,4 +73,18 @@ public class Auth {
     }
 
 
+//    would create a profile class to handle the profile but im burnt out
+//    public void usersItemsOut(User user){
+//        System.out.format( "%10s%40s%n" , "TYPE" , "NAME");
+//        ArrayList<Object> items = user.getItemsOut();
+//        for(int i = 0; i < items.size(); i++ ){
+//            if(items.get(i) instanceof Book ) {
+//                System.out.format("%10s%40s%n", "BOOK", ((Book) items.get(i)).getTitle());
+//            }else{
+//                System.out.format("%10s%40s%n", "MOVIE", ((Movie) items.get(i)).getName());
+//            }
+//        }
+//        AppFunctions.lineBreak();
+//    }
+
 }
