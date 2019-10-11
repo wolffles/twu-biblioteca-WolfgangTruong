@@ -13,13 +13,16 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 public class LibraryTest {
-    private Library lib = new Library();
+    Library lib;
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
+        lib = new Library();
     }
+
 
     @After
     public void restoreStreams() {
@@ -30,17 +33,17 @@ public class LibraryTest {
     public void shouldGenerateBookList() {
 //        Library lib = new Library();
         ArrayList<Book> x = lib.getBookList();
-        assertThat( x.isEmpty() , is(not(true)));
-
+        assertThat( x.isEmpty(), is(not(true)));
     }
 
-//    @Test
-//    public void checkoutBookShouldBeDifferentAfterSuccess() {
-//        Library constant = new Library();
-//        ByteArrayInputStream m2 = new ByteArrayInputStream(" 0 \n 0\n 0\n 0\n".getBytes());
-//        System.setIn(m2);
-//        lib.checkoutBook("title");
-//        assertEquals(lib.getBookList().size(), constant.getBookList().size());
-//        System.setIn(System.in);
-//    }
+    @Test
+    public void shouldCheckoutBook(){
+
+        String attr = "title";
+        ByteArrayInputStream userInput = new ByteArrayInputStream("0\n 0\n 0\n".getBytes());
+        System.setIn(userInput);
+        lib.checkoutBook(attr);
+        assertThat( outContent.toString(),is("arbitrary"));
+        System.setIn(System.in);
+    }
 }

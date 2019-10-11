@@ -21,8 +21,10 @@ public class BibliotecaApp {
             "3. Login\n" +
             "0. Exit App";
 
+    public static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         Auth auth = new Auth();
         Library library = new Library();
         bibliotecaLaunch(library, auth);

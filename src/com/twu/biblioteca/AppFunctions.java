@@ -15,10 +15,9 @@ public class AppFunctions {
 
 //  Common function to collect user Int input
     public static int numberSelect(String message){
-        Scanner scanner = new Scanner(System.in);
         System.out.println(message);
         try {
-            return scanner.nextInt();
+            return BibliotecaApp.scan.nextInt();
         } catch (InputMismatchException e) {
             return -1;
         }
@@ -26,9 +25,8 @@ public class AppFunctions {
 
 //  Common function to collect user String input.
     public static String enterString(String message){
-        Scanner scan = new Scanner(System.in);
         System.out.println(message);
-        String words = scan.nextLine();
+        String words = BibliotecaApp.scan.nextLine();
 //        System.out.println(words);
         return words;
     }
@@ -78,16 +76,15 @@ public class AppFunctions {
 
 //  helps mark end of a user interaction. one has message before the end, other is generic end.
     public static void lineBreak(String message){
-        Scanner scan = new Scanner(System.in);
         System.out.println(message);
         System.out.println("-> Enter <-");
-        scan.nextLine();
+        BibliotecaApp.scan.nextLine();
     }
 
+
     public static void lineBreak(){
-        Scanner scan = new Scanner(System.in);
         System.out.println("-> Enter <-");
-        scan.nextLine();
+        BibliotecaApp.scan.nextLine();
     }
 
 

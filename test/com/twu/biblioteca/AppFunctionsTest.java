@@ -57,8 +57,8 @@ public class AppFunctionsTest {
         AppFunctions app = new AppFunctions();
         Library lib = new Library();
 
-//       @WRONG INPUT: title mispelLed or doesn't exist returns false
-        assertThat(app.arrayContainsTitle(lib.getBookList(), "Ladss little leg"),is( false));
+//       @WRONG INPUT: title mispelled or doesn't exist returns false
+        assertThat(app.arrayContainsTitle(lib.getBookList(), "Lads little leg"),is( false));
 //       @CORRECT INPUT: is case insensitive and returns true if matches
         assertThat(app.arrayContainsTitle(lib.getBookList(), "LADS LITTLE LEG"),is( true));
     }

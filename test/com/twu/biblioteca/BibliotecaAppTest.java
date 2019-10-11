@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -21,6 +22,21 @@ public class BibliotecaAppTest{
     @After
     public void restoreStreams() {
         System.setOut(originalOut);
+    }
+
+    @Test
+    public void main() {
+//    creating sample input values, possible refactor
+        AppFunctions app = new AppFunctions();
+        ByteArrayInputStream m1 = new ByteArrayInputStream("My string".getBytes());
+        ByteArrayInputStream m2 = new ByteArrayInputStream("16\n 4\n 9\n".getBytes());
+        ByteArrayInputStream m3 = new ByteArrayInputStream("4".getBytes());
+        System.setIn(m2);
+//   do your thing
+        assertThat(app.numberSelect("something"),is(16));
+//   optionally, reset System.in to its original
+        System.setIn(System.in);
+//       assertEquals(2, 0);
     }
 
 

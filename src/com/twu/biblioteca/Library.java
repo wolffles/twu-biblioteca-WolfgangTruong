@@ -66,16 +66,16 @@ public class Library {
 
     public void checkoutBook(String attr){
         boolean bool = true;
-        switch(attr.toLowerCase()){
-            case "id":
-                while(bool) {
+        while (bool){
+            switch(attr.toLowerCase()){
+                case "id":
                     int id = AppFunctions.numberSelect("enter ID number, or 0 to exit");
                     if (id == 0){
                         bool = false;
                     }else if(AppFunctions.arrayContainsId(getBookList(), id)){
                         bool = false;
                         for(int i = 0; i < this.getBookList().size(); i++){
-                                Book item = this.bookList.get(i);
+                            Book item = this.bookList.get(i);
                             if(item.getId() == id){
                                 checkedOutList.add(item);
                                 bookList.remove(item);
@@ -89,13 +89,12 @@ public class Library {
                             AppFunctions.lineBreak("ID doesn't exist, try another");
                         }
                     }
-                }
-                break;
-            case "title":
-                while(bool) {
+                    break;
+                case "title":
                     String title = AppFunctions.enterString("enter title number, or 0 to exit");
                     if (title.contentEquals("0")){
                         bool = false;
+                        AppFunctions.lineBreak("goodbye");
                     }else if (AppFunctions.arrayContainsTitle(this.bookList, title.trim())){
                         bool = false;
                         for(int i = 0; i < this.getBookList().size(); i++){
@@ -113,10 +112,10 @@ public class Library {
                             AppFunctions.lineBreak("Couldn't find the title you were looking for. Please check your spelling.");
                         }
                     }
+                    break;
+                default: {
+                    AppFunctions.lineBreak("you didn't enter the correct attribute");
                 }
-                break;
-            default: {
-                AppFunctions.lineBreak("you didn't enter the correct attribute");
             }
         }
     }
