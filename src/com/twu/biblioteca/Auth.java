@@ -67,6 +67,7 @@ public class Auth {
             AppFunctions.lineBreak("Invalid library number and/or password");
         }else if(user != null && user.getPassword().contentEquals(password)){
             authChange(accounts,"member", libraryNumber);
+            library.setCurrentUser(user);
         }else{
             AppFunctions.lineBreak("Invalid inputs");
         }

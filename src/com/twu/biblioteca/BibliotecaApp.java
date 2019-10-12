@@ -103,23 +103,24 @@ public class BibliotecaApp {
     }
     private static void libraryList(Library library){
         System.out.format( "%5s%50s%30s%5s%n" , "ID" , "TITLE", "AUTHOR", "YEAR");
-        library.getBookList().forEach(ele ->
-            System.out.format( "%5d%50s%30s%5d%n", ele.getId(), ele.getTitle(), ele.getAuthor(), ele.getYear())
+        library.getBookList().forEach( ele ->
+            System.out.format( "%5d%50s%30s%5d%n", ele.getId(), ele.getName(), ((Book) ele).getAuthor(), ((Book) ele).getYear())
         );
     }
     private static void moviesCollection(Library collection){
         System.out.format( "%40s%10s%40s%5s%n" , "NAME" , "YEAR", "DIRECTOR", "RAITING");
         collection.getMovieList().forEach(ele ->
-                System.out.format( "%40s%10s%40s%5s%n", ele.getName(), ele.getYear(), ele.getDirector(), ele.getRating())
+                System.out.format( "%40s%10s%40s%5s%n", ele.getName(), ((Movie) ele).getYear(), ((Movie) ele).getDirector(), ((Movie) ele).getRating())
         );
     }
+
 
     private static void usersItemsOut(User user){
         System.out.format( "%10s%40s%n" , "TYPE" , "NAME");
         ArrayList<Object> items = user.getItemsOut();
         for(int i = 0; i < items.size(); i++ ){
             if(items.get(i) instanceof Book ) {
-                System.out.format("%10s%40s%n", "BOOK", ((Book) items.get(i)).getTitle());
+                System.out.format("%10s%40s%n", "BOOK", ((Book) items.get(i)).getName());
             }else{
                 System.out.format("%10s%40s%n", "MOVIE", ((Movie) items.get(i)).getName());
             }

@@ -32,6 +32,10 @@ public class User {
         itemsOut.add(object);
     }
 
+    public void removeFromItemsOut(Object object){
+        itemsOut.remove((object));
+    }
+
     public String getName() {
         return name;
     }

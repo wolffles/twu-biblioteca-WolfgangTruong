@@ -5,10 +5,8 @@
 package com.twu.biblioteca;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 
 public class AppFunctions {
@@ -17,7 +15,9 @@ public class AppFunctions {
     public static int numberSelect(String message){
         System.out.println(message);
         try {
-            return BibliotecaApp.scan.nextInt();
+            int num = BibliotecaApp.scan.nextInt();
+            BibliotecaApp.scan.nextLine();
+            return num;
         } catch (InputMismatchException e) {
             return -1;
         }
@@ -32,10 +32,10 @@ public class AppFunctions {
     }
 
 //  Used to check if a title exists in an ArrayList<Book>
-    public static boolean arrayContainsTitle(ArrayList<Book> array, String title){
+    public static boolean arrayContainsTitle(ArrayList<LibObj> array, String title){
         boolean exist = false;
         for(int i = 0; i < array.size(); i++){
-            if(array.get(i).getTitle().toLowerCase().contentEquals(title.toLowerCase())){
+            if(array.get(i).getName().toLowerCase().contentEquals(title.toLowerCase())){
                 exist = true;
             }
         }
@@ -53,7 +53,7 @@ public class AppFunctions {
     }
 
 
-    public static boolean arrayContainsName(ArrayList<Movie> array, String title){
+    public static boolean arrayContainsName(ArrayList<LibObj> array, String title){
         boolean exist = false;
         for(int i = 0; i < array.size(); i++){
             if(array.get(i).getName().toLowerCase().contentEquals(title.toLowerCase())){
@@ -63,7 +63,7 @@ public class AppFunctions {
         return exist;
     }
 
-    public static boolean arrayContainsId(ArrayList<Book> array, int id){
+    public static boolean arrayContainsId(ArrayList<LibObj> array, int id){
         boolean exist = false;
         for(int i = 0; i < array.size(); i++){
             if(array.get(i).getId() == id){

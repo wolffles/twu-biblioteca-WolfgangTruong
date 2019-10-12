@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Book {
+public class Book extends LibObj{
     private String title;
     private int id;
     private String author;
@@ -21,8 +21,8 @@ public class Book {
         this.year = year;
         this.renter = renter;
     }
-
-    public String getTitle() {
+    @Override
+    public String getName() {
         return title;
     }
 

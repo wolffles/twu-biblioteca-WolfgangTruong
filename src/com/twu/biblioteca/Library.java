@@ -1,20 +1,24 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Library {
-    private ArrayList<Book> bookList;
-    private ArrayList<Book> checkedOutList;
-    private ArrayList<Movie> movieList;
-    private ArrayList<Movie> rentedMovies;
-    private ArrayList<User> userAccounts;
+    private ArrayList<LibObj> bookList;
+    private ArrayList<LibObj> checkedOutList;
+    private ArrayList<LibObj> movieList;
+    private ArrayList<LibObj> rentedMovies;
+    private Map<String, User> userAccounts;
+    private User currentUser;
 
     public Library() {
         bookList = new ArrayList<>();
         checkedOutList = new ArrayList<>();
         movieList = new ArrayList<>();
         rentedMovies = new ArrayList<>();
-        userAccounts = new ArrayList<>();
+        userAccounts = new HashMap<>();
         User user = new User("lib-1234", "password");
         bookList.add(new Book("All About Apples", 1, "johnny appleseed", 1793));
         bookList.add(new Book("Be Brave Bruh", 2, "Brospeh bruhmun", 2012));
@@ -31,36 +35,44 @@ public class Library {
         bookList.add(new Book("Muse Music's Masterpieces", 13, "Manny Makovich", 1968));
         Book user1 = new Book("Nicole's Naughty Nights", 14, "Nick NewComer", 2019, "lib-1234");
         checkedOutList.add(user1);
-        movieList.add(new Movie("Iron Man", "2008", "Jon Favreau", "10"));
-        movieList.add(new Movie("Iron Man2", "2010", "Jon Favreau", "9"));
-        movieList.add(new Movie("Iron Man3", "2014", "Jon Favreau", "3"));
-        movieList.add(new Movie("Avengers", "2011", " Joss Whedon, Joe Russo, Anthony Russo", "10"));
-        movieList.add(new Movie("Thor", "2009", "Kenneth Branagh", "9"));
-        movieList.add(new Movie("Captain America", "2012", "Joe Johnston", "6"));
-        Movie user2 = new Movie("Spider Man: Home Coming","2016","I don't know","10", "lib-1234");
+        movieList.add(new Movie(01,"Iron Man", "2008", "Jon Favreau", "10"));
+        movieList.add(new Movie(02,"Iron Man2", "2010", "Jon Favreau", "9"));
+        movieList.add(new Movie(03,"Iron Man3", "2014", "Jon Favreau", "3"));
+        movieList.add(new Movie(04,"Avengers", "2011", " Joss Whedon, Joe Russo, Anthony Russo", "10"));
+        movieList.add(new Movie(05,"Thor", "2009", "Kenneth Branagh", "9"));
+        movieList.add(new Movie(06,"Captain America", "2012", "Joe Johnston", "6"));
+        Movie user2 = new Movie(07,"Spider Man: Home Coming","2016","I don't know","10", "lib-1234");
         rentedMovies.add(user2);
-        userAccounts.add(user);
+        userAccounts.put("lib-1234", user);
         user.addToItemsOut(user1);
         user.addToItemsOut(user2);
     }
 
-    public ArrayList<Book> getBookList() {
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public ArrayList<LibObj> getBookList() {
         return this.bookList;
     }
 
-    public ArrayList<Movie> getMovieList() {
+    public ArrayList<LibObj> getMovieList() {
         return movieList;
     }
 
-    public ArrayList<Movie> getRentedMovies() {
+    public ArrayList<LibObj> getRentedMovies() {
         return rentedMovies;
     }
 
-    public ArrayList<User> getUserAccounts() {
-        return userAccounts;
+    public Set<String> getUserAccounts() {
+        return userAccounts.keySet();
     }
 
-    public ArrayList<Book> getCheckedOutList(){
+    public ArrayList<LibObj> getCheckedOutList(){
         return this.checkedOutList;
     }
 
@@ -72,13 +84,13 @@ public class Library {
                     int id = AppFunctions.numberSelect("enter ID number, or 0 to exit");
                     if (id == 0){
                         bool = false;
+                        AppFunctions.lineBreak("Back to main menu");
                     }else if(AppFunctions.arrayContainsId(getBookList(), id)){
                         bool = false;
                         for(int i = 0; i < this.getBookList().size(); i++){
-                            Book item = this.bookList.get(i);
+                            LibObj item = this.bookList.get(i);
                             if(item.getId() == id){
-                                checkedOutList.add(item);
-                                bookList.remove(item);
+                                takeFromLibrary(item);
                             }
                         }
                         AppFunctions.lineBreak("Thank you! Enjoy the Book");
@@ -94,14 +106,13 @@ public class Library {
                     String title = AppFunctions.enterString("enter title number, or 0 to exit");
                     if (title.contentEquals("0")){
                         bool = false;
-                        AppFunctions.lineBreak("goodbye");
-                    }else if (AppFunctions.arrayContainsTitle(this.bookList, title.trim())){
+                        AppFunctions.lineBreak("Back to main menu");
+                    }else if (AppFunctions.arrayContainsTitle(getBookList(), title.trim())){
                         bool = false;
                         for(int i = 0; i < this.getBookList().size(); i++){
-                            Book item = this.bookList.get(i);
-                            if(item.getTitle().toLowerCase().contentEquals(title.toLowerCase())){
-                                checkedOutList.add(item);
-                                bookList.remove(item);
+                            LibObj item = this.bookList.get(i);
+                            if(item.getName().toLowerCase().contentEquals(title.toLowerCase())){
+                                takeFromLibrary(item);
                             }
                         }
                         AppFunctions.lineBreak("Thank you! Enjoy the Book");
@@ -132,10 +143,9 @@ public class Library {
                     }else if(AppFunctions.arrayContainsId(getCheckedOutList(), id)){
                         bool = false;
                         for(int i = 0; i < getCheckedOutList().size(); i++){
-                            Book item = this.checkedOutList.get(i);
+                            LibObj item = this.checkedOutList.get(i);
                             if(item.getId() == id){
-                                this.bookList.add(item);
-                                checkedOutList.remove(item);
+                                giveToLibrary(item);
                             }
                         }
                         AppFunctions.lineBreak("Thank you for returning the book");
@@ -152,10 +162,10 @@ public class Library {
                     }else if (AppFunctions.arrayContainsTitle(this.checkedOutList, title.trim())){
                         bool = false;
                         for(int i = 0; i < getCheckedOutList().size(); i++){
-                            Book item = this.checkedOutList.get(i);
-                            if(item.getTitle().toLowerCase().contentEquals(title.toLowerCase())){
-                                bookList.add(item);
-                                checkedOutList.remove(item);
+                            LibObj item = this.checkedOutList.get(i);
+                            if(item.getName().toLowerCase().contentEquals(title.toLowerCase())){
+                                giveToLibrary(item);
+
                             }
                         }
                         AppFunctions.lineBreak("Thank you for returning the book!");
@@ -179,10 +189,11 @@ public class Library {
             } else if (AppFunctions.arrayContainsName(this.movieList, name.trim())) {
                 bool = false;
                 for (int i = 0; i < getMovieList().size(); i++) {
-                    Movie item = getMovieList().get(i);
+                    LibObj item = getMovieList().get(i);
                     if (item.getName().toLowerCase().contentEquals(name.toLowerCase())) {
                         rentedMovies.add(item);
                         movieList.remove(item);
+
                     }
                 }
                 AppFunctions.lineBreak("Thank you! Enjoy the Film");
@@ -195,4 +206,25 @@ public class Library {
             }
         }
     }
+
+
+
+/*
+   Below are util functions for Library
+ */
+
+    private void giveToLibrary(LibObj item){
+        this.bookList.add(item);
+        this.checkedOutList.remove(item);
+        getCurrentUser().getItemsOut().remove(item);
+    }
+
+     private void takeFromLibrary(LibObj item){
+        this.getCheckedOutList().add(item);
+        bookList.remove(item);
+        getCurrentUser().addToItemsOut(item);
+    }
+
+    private void addToList(){};
+
 }
