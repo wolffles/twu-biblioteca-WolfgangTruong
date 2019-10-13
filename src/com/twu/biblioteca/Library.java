@@ -68,8 +68,8 @@ public class Library {
         return rentedMovies;
     }
 
-    public Set<String> getUserAccounts() {
-        return userAccounts.keySet();
+    public Map<String, User> getUserAccounts() {
+        return this.userAccounts;
     }
 
     public ArrayList<LibObj> getCheckedOutList(){
@@ -126,6 +126,7 @@ public class Library {
                     break;
                 default: {
                     AppFunctions.lineBreak("you didn't enter the correct attribute");
+                    bool = false;
                 }
             }
         }
@@ -180,33 +181,80 @@ public class Library {
         }
     }
 
-    public void checkoutMovie() {
-        boolean bool = true;
-        while (bool) {
-            String name = AppFunctions.enterString("enter name of movie, or 0 to exit");
-            if (name.contentEquals("0")) {
-                bool = false;
-            } else if (AppFunctions.arrayContainsName(this.movieList, name.trim())) {
-                bool = false;
-                for (int i = 0; i < getMovieList().size(); i++) {
-                    LibObj item = getMovieList().get(i);
-                    if (item.getName().toLowerCase().contentEquals(name.toLowerCase())) {
-                        rentedMovies.add(item);
-                        movieList.remove(item);
+//    public void checkoutLibObj(ArrayList<LibObj>, String<>) {
+//        boolean bool = true;
+//        while (bool) {
+//            String name = AppFunctions.enterString("Enter name of movie, or 0 to exit");
+//            if (name.contentEquals("0")) {
+//                bool = false;
+//            } else if (AppFunctions.arrayContainsName(this.movieList, name.trim())) {
+//                bool = false;
+//                for (int i = 0; i < getMovieList().size(); i++) {
+//                    LibObj item = getMovieList().get(i);
+//                    if (item.getName().toLowerCase().contentEquals(name.toLowerCase())) {
+//                        rentedMovies.add(item);
+//                        movieList.remove(item);
+//
+//                    }
+//                }
+//                AppFunctions.lineBreak("Thank you! Enjoy the Film");
+//            } else {
+//                if (AppFunctions.arrayContainsName(getRentedMovies(), name.trim())) {
+//                    AppFunctions.lineBreak("Sorry, that movie is not available, try again later");
+//                } else {
+//                    AppFunctions.lineBreak("Couldn't find the name you were looking for. Please check your spelling.");
+//                }
+//            }
+//        }
+//    }
 
-                    }
-                }
-                AppFunctions.lineBreak("Thank you! Enjoy the Film");
-            } else {
-                if (AppFunctions.arrayContainsName(getRentedMovies(), name.trim())) {
-                    AppFunctions.lineBreak("Sorry, that movie is not available, try again later");
-                } else {
-                    AppFunctions.lineBreak("Couldn't find the name you were looking for. Please check your spelling.");
-                }
-            }
-        }
+    public void returnMovie() {
+//        boolean bool = true;
+//        switch(attr.toLowerCase()){
+//            case "id":
+//                while(bool) {
+//                    int id = AppFunctions.numberSelect("enter ID number, or 0 to exit");
+//                    if (id == 0){
+//                        bool = false;
+//                    }else if(AppFunctions.arrayContainsId(getCheckedOutList(), id)){
+//                        bool = false;
+//                        for(int i = 0; i < getCheckedOutList().size(); i++){
+//                            LibObj item = this.checkedOutList.get(i);
+//                            if(item.getId() == id){
+//                                giveToLibrary(item);
+//                            }
+//                        }
+//                        AppFunctions.lineBreak("Thank you for returning the book");
+//                    }else {
+//                        AppFunctions.lineBreak("That is not a valid return, check Id.");
+//                    }
+//                }
+//                break;
+//            case "title":
+//                while(bool) {
+//                    String title = AppFunctions.enterString("enter title number, or 0 to exit");
+//                    if (title.contentEquals("0")){
+//                        bool = false;
+//                    }else if (AppFunctions.arrayContainsTitle(this.checkedOutList, title.trim())){
+//                        bool = false;
+//                        for(int i = 0; i < getCheckedOutList().size(); i++){
+//                            LibObj item = this.checkedOutList.get(i);
+//                            if(item.getName().toLowerCase().contentEquals(title.toLowerCase())){
+//                                giveToLibrary(item);
+//
+//                            }
+//                        }
+//                        AppFunctions.lineBreak("Thank you for returning the book!");
+//                    }else{
+//                        AppFunctions.lineBreak("That is not a valid return, check spelling");
+//                    }
+//                }
+//                break;
+//            default: {
+//                AppFunctions.lineBreak("you didn't enter the correct attribute");
+//            }
+//        }
     }
-
 
 
 /*

@@ -15,6 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class LibraryTest {
     Library lib;
+    Auth auth;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -24,6 +25,8 @@ public class LibraryTest {
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         lib = new Library();
+        auth = new Auth();
+        auth.login(lib, "lib-1234", "password");
     }
 
 
@@ -50,41 +53,37 @@ public class LibraryTest {
 
     }
 
-//    @Test
-//    public void checkoutBookShouldExitId() {
-//        String attr = "id";
-//        ByteArrayInputStream userInput = new ByteArrayInputStream("0\n \n".getBytes());
-//        System.setIn(userInput);
-//        lib.checkoutBook(attr);
-//        assertThat(outContent.toString(), is(containsString("enter ID number, or 0 to exit\nBack to main menu\n-> Enter <-\n")));
-//        System.setIn(System.in);
-//    }
-
     @Test
     public void checkoutBookTitleSuccess(){
         String attr = "title";
-        ByteArrayInputStream userInput = new ByteArrayInputStream("Lads Little Leg\n".getBytes());
-        assertThat( outContent.toString(), is(containsString("enter title number, or 0 to exit\nBack to main menu\n-> Enter <-\n")));
+        ByteArrayInputStream userInput = new ByteArrayInputStream("Lads Little Leg \n \n".getBytes());
         System.setIn(userInput);
         lib.checkoutBook(attr);
+        assertThat( outContent.toString(), is(containsString("enter title number, or 0 to exit\n" +
+                "Thank you! Enjoy the Book\n" +
+                "-> Enter <-")));
         System.setIn(System.in);
     }
     @Test
     public void checkoutBookIDSuccess(){
         String attr = "id";
-        ByteArrayInputStream userInput = new ByteArrayInputStream("\n13\n\n 0\n".getBytes());
-        assertThat( outContent.toString(), is(containsString("enter title number, or 0 to exit\nBack to main menu\n-> Enter <-\n")));
+        ByteArrayInputStream userInput = new ByteArrayInputStream("13\n\n".getBytes());
         System.setIn(userInput);
         lib.checkoutBook(attr);
-        System.setIn(System.in);
+        assertThat(outContent.toString(), is(containsString("enter ID number, or 0 to exit\n" +
+                "Thank you! Enjoy the Book\n" +
+                "-> Enter <-")));
+
     }
     @Test
     public void checkoutBookIDFail(){
         String attr = "id";
-        ByteArrayInputStream userInput = new ByteArrayInputStream("0\n".getBytes());
-        assertThat( outContent.toString(), is(containsString("arbitrary")));
+        ByteArrayInputStream userInput = new ByteArrayInputStream("32\n\n14\n\n13\n\n".getBytes());
         System.setIn(userInput);
         lib.checkoutBook(attr);
-        System.setIn(System.in);
+        assertThat(outContent.toString(), is(containsString("enter ID number, or 0 to exit\n" +
+                "Thank you! Enjoy the Book\n" +
+                "-> Enter <-")));
+
     }
 }

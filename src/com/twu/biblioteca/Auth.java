@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 public class Auth {
     private boolean isActive;
@@ -33,21 +35,16 @@ public class Auth {
         this.accountType = accountType;
     }
 
-    public void setAccRef(ArrayList<User> accounts, String libraryNumber) {
+    public void setAccRef(Map<String, User> accounts, String libraryNumber) {
         this.accRef = getUserFromCollections(accounts, libraryNumber);
     }
 
-    public User getUserFromCollections(ArrayList<User> accounts, String libraryNumber){
-        User user = null;
-        for(int i = 0; i < accounts.size(); i ++){
-            if(accounts.get(i).getLibraryNumber().contentEquals(libraryNumber)){
-                user = accounts.get(i);
-            }
-        }
+    public User getUserFromCollections(Map<String, User> accounts, String libraryNumber){
+        User user = accounts.get(libraryNumber);;
         return user;
     }
 
-    private void authChange(ArrayList<User> accounts, String accType, String libraryNumber){
+    private void authChange(Map<String,User> accounts, String accType, String libraryNumber){
         toggleActive();
         setAccountType(accType);
         setAccRef(accounts, libraryNumber);
@@ -55,18 +52,11 @@ public class Auth {
     }
 
     public void login(Library library, String libraryNumber, String password){
-        ArrayList<User> accounts = library.getUserAccounts();
-        User user = null;
-        for(int i = 0; i < accounts.size(); i ++){
-            if(accounts.get(i).getLibraryNumber().contentEquals(libraryNumber)){
-                user = accounts.get(i);
-            }
-        }
-        // check to see if account exist
+        User user = library.getUserAccounts().get(libraryNumber);
         if(user == null){
             AppFunctions.lineBreak("Invalid library number and/or password");
         }else if(user != null && user.getPassword().contentEquals(password)){
-            authChange(accounts,"member", libraryNumber);
+            authChange(library.getUserAccounts(),"member", libraryNumber);
             library.setCurrentUser(user);
         }else{
             AppFunctions.lineBreak("Invalid inputs");

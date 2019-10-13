@@ -53,9 +53,10 @@ public class BibliotecaApp {
                         library.returnBook(AppFunctions.enterString("would you like to checkout by 'Id' or 'Title'"));
                         break;
                     case 5:
-                        library.checkoutMovie();
+//                        library.checkoutMovie();
                         break;
                     case 6:
+//                        return movie method here.
                         break;
                     case 7:
                         usersItemsOut(auth.getAccRef());
@@ -108,9 +109,9 @@ public class BibliotecaApp {
         );
     }
     private static void moviesCollection(Library collection){
-        System.out.format( "%40s%10s%40s%5s%n" , "NAME" , "YEAR", "DIRECTOR", "RAITING");
+        System.out.format( "%5s%40s%10s%40s%5s%n" , "ID", "NAME" , "YEAR", "DIRECTOR", "RATING");
         collection.getMovieList().forEach(ele ->
-                System.out.format( "%40s%10s%40s%5s%n", ele.getName(), ((Movie) ele).getYear(), ((Movie) ele).getDirector(), ((Movie) ele).getRating())
+                System.out.format( "%5d%40s%10s%40s%5s%n", ele.getId(), ele.getName(), ((Movie) ele).getYear(), ((Movie) ele).getDirector(), ((Movie) ele).getRating())
         );
     }
 
